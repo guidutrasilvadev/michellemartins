@@ -23,8 +23,9 @@
   RASCUNHO v2 — feito pelo Guilherme Dutra
   - Direção visual PROVISÓRIA (preto e branco do logo da cliente). A cliente ainda não tem identidade oficial.
   - O logo no topo é só um texto provisório. Trocar pelo arquivo oficial (vetorial) quando chegar.
-  - Fundos em img/ são versões otimizadas (WebP) dos originais da pasta referencias/fundos-originais.
-  - O site NÃO usa fotos de pessoas. Se a cliente enviar retratos no futuro, a área da direita do hero (.arch) comporta uma imagem.
+  - Fundos e fotos em img/ são versões otimizadas (WebP) dos originais em referencias/fundos-originais e referencias/fotos-originais.
+  - Retratos da Dra. Michelle: hero (.arch, michelle-hero-*) e Sobre (.am-big, michelle-sobre-*; o quadro pequeno .am-tile usa sobre-livros-640, foto de livros sobre a mesa).
+  - Topos dos cartões de áreas (.card-top): area-familia, area-imoveis, area-outros (fotos de banco de imagem enviadas pelo Guilherme).
   - Tudo que aparece com marcação amarela (.tbd) depende de confirmação da cliente. Nada disso deve ir ao ar sem revisão.
   - Antes de publicar: remover a faixa "Rascunho" e as marcações, e revisar os textos contra as regras de publicidade da OAB.
 -->
@@ -144,6 +145,7 @@ nav.scrolled{background:rgba(0,0,0,.9);backdrop-filter:blur(10px);-webkit-backdr
 .pill:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(255,255,255,.14)}
 .pill{white-space:nowrap;max-width:100%}
 @media(max-width:380px){.pill{gap:10px;padding:0 18px 0 16px;font-size:15px}.pill .ico{font-size:22px}.pill .ico:last-child{font-size:20px;margin-left:0}}
+@media(max-width:340px){.pill{gap:8px;padding:0 14px;font-size:14px}.pill .ico{font-size:20px}.pill .ico:last-child{font-size:18px}}
 .pill:hover .ico:last-child{transform:translateX(4px)}
 .hero-link{display:inline-flex;align-items:center;gap:10px;font-size:16px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.75);padding-bottom:5px}
 .hero-link .ico{font-size:20px;transition:transform .35s var(--ease)}
@@ -154,9 +156,11 @@ nav.scrolled{background:rgba(0,0,0,.9);backdrop-filter:blur(10px);-webkit-backdr
 .hero-feats .ico{font-size:28px;stroke-width:1.2}
 @media(max-width:620px){.hero-feats{flex-direction:column;gap:18px}.hero-feats li{border:0;margin:0;padding:0}}
 
-/* moldura em arco (no lugar da foto) */
-.arch{position:absolute;z-index:1;right:5px;top:calc(88px + 24px);bottom:24px;margin:auto 0;width:clamp(340px,33.9vw,567px);height:min(710px,calc(100% - 160px));min-height:420px;border-radius:var(--arch);border:1px solid rgba(255,255,255,.2);overflow:hidden;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,0) 55%)}
-.arch::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.55) 100%)}
+/* moldura em arco com o retrato (só carrega em ≥960px; no celular fica escondida) */
+.arch{position:absolute;z-index:1;right:5px;top:calc(88px + 24px);bottom:24px;margin:auto 0;width:clamp(340px,33.9vw,567px);height:min(710px,calc(100% - 160px));min-height:420px;border-radius:var(--arch);border:1px solid rgba(255,255,255,.2);overflow:hidden;background:#0c0c0c}
+@media(min-width:960px){.arch{background:#0c0c0c url(img/michelle-hero-720.webp) 50% 16%/cover no-repeat}}
+@media(min-width:960px) and (min-resolution:1.4dppx),(min-width:960px) and (-webkit-min-device-pixel-ratio:1.4){.arch{background-image:url(img/michelle-hero-1080.webp)}}
+.arch::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.6) 100%)}
 .arch figcaption{position:absolute;z-index:2;left:36px;right:28px;bottom:30px;padding-left:22px;border-left:1px solid rgba(255,255,255,.7);display:grid;gap:6px}
 .arch figcaption b{font-family:var(--serif);font-weight:400;font-size:15px;letter-spacing:.16em;text-transform:uppercase}
 .arch figcaption i{font-family:var(--serif);font-size:18px;color:rgba(255,255,255,.72)}
@@ -181,15 +185,13 @@ nav.scrolled{background:rgba(0,0,0,.9);backdrop-filter:blur(10px);-webkit-backdr
 .cards{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
 @media(min-width:900px){.cards{grid-template-columns:repeat(3,1fr);gap:clamp(12px,1vw,16px)}}
 /* cartões pretos; no hover crescem de leve e invertem (fundo branco, letras pretas) */
-.card{--c-bg:#0b0b0b;--c-bd:#0b0b0b;--c-h:#fff;--c-p:rgba(255,255,255,.76);--c-n:rgba(255,255,255,.6);--c-b:#fff;--c-top:0;--c-sh:0 0 0 rgba(0,0,0,0);position:relative;display:flex;flex-direction:column;background:var(--c-bg);border:1px solid var(--c-bd);border-radius:14px;overflow:hidden;color:var(--c-h);box-shadow:var(--c-sh);transition:opacity .9s var(--ease),transform .55s var(--ease),background .5s var(--ease),border-color .5s var(--ease),box-shadow .55s var(--ease),color .5s var(--ease)}
+.card{--c-bg:#0b0b0b;--c-bd:#0b0b0b;--c-h:#fff;--c-p:rgba(255,255,255,.76);--c-n:rgba(255,255,255,.6);--c-b:#fff;--c-g:0;--c-sh:0 0 0 rgba(0,0,0,0);position:relative;display:flex;flex-direction:column;background:var(--c-bg);border:1px solid var(--c-bd);border-radius:14px;overflow:hidden;color:var(--c-h);box-shadow:var(--c-sh);transition:opacity .9s var(--ease),transform .55s var(--ease),background .5s var(--ease),border-color .5s var(--ease),box-shadow .55s var(--ease),color .5s var(--ease)}
 .card-top{position:relative;height:clamp(120px,21.5svh,206px);background:#111;overflow:hidden}
-@media(max-width:899px){.card-top{height:170px}}
-.card-top::before,.card-top::after{content:"";position:absolute;inset:0;background-repeat:no-repeat;background-size:300% auto;transition:opacity .6s var(--ease)}
-.card-top::before{background-image:url(img/hero-escuro-1440.webp);background-position:var(--dk)}
-.card-top::after{background-image:url(img/parede-clara-1920.webp);background-position:var(--lt);opacity:var(--c-top)}
-.t1{--dk:100% 26%;--lt:0% 42%}
-.t2{--dk:66% 8%;--lt:58% 100%}
-.t3{--dk:90% 96%;--lt:100% 14%}
+@media(max-width:899px){.card-top{height:clamp(170px,30vw,250px)}}
+.card-top img{width:100%;height:100%;object-fit:cover;filter:grayscale(var(--c-g));transition:filter .5s var(--ease)}
+.t1 img{object-position:50% 58%}
+.t2 img{object-position:50% 42%}
+.t3 img{object-position:50% 55%}
 .card-body{flex:1;display:flex;flex-direction:column;gap:clamp(8px,1.3svh,12px);padding:clamp(18px,2.6svh,26px) clamp(22px,2.2vw,32px) clamp(20px,2.8svh,28px)}
 .card .num{display:flex;align-items:center;gap:16px;font-family:var(--serif);font-style:italic;font-size:15px;color:var(--c-n);transition:color .5s var(--ease)}
 .card .num::after{content:"";width:46px;height:1px;background:currentColor;opacity:.7}
@@ -200,11 +202,11 @@ nav.scrolled{background:rgba(0,0,0,.9);backdrop-filter:blur(10px);-webkit-backdr
 .pill-o:hover .ico{transform:translateX(4px)}
 /* inversão: mouse = hover; teclado = foco visível; toque = enquanto o dedo pressiona */
 @media(hover:hover){
-  .card:hover{--c-bg:#fff;--c-bd:#e4dfd8;--c-h:#000;--c-p:#1c1c1c;--c-n:#6d6a67;--c-b:#000;--c-top:1;--c-sh:0 34px 80px rgba(20,16,12,.18)}
+  .card:hover{--c-bg:#fff;--c-bd:#e4dfd8;--c-h:#000;--c-p:#1c1c1c;--c-n:#6d6a67;--c-b:#000;--c-g:1;--c-sh:0 34px 80px rgba(20,16,12,.18)}
   .card:hover .pill-o:hover{background:#000;color:#fff}
 }
-.card:has(:focus-visible){--c-bg:#fff;--c-bd:#e4dfd8;--c-h:#000;--c-p:#1c1c1c;--c-n:#6d6a67;--c-b:#000;--c-top:1;--c-sh:0 34px 80px rgba(20,16,12,.18)}
-@media(hover:none){.card:active{--c-bg:#fff;--c-bd:#e4dfd8;--c-h:#000;--c-p:#1c1c1c;--c-n:#6d6a67;--c-b:#000;--c-top:1}}
+.card:has(:focus-visible){--c-bg:#fff;--c-bd:#e4dfd8;--c-h:#000;--c-p:#1c1c1c;--c-n:#6d6a67;--c-b:#000;--c-g:1;--c-sh:0 34px 80px rgba(20,16,12,.18)}
+@media(hover:none){.card:active{--c-bg:#fff;--c-bd:#e4dfd8;--c-h:#000;--c-p:#1c1c1c;--c-n:#6d6a67;--c-b:#000;--c-g:1}}
 @media(hover:hover) and (min-width:900px){.card:hover{transform:scale(1.035);z-index:2}}
 @media(prefers-reduced-motion:reduce){.card:hover{transform:none!important}}
 .areas-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px 24px;margin-top:clamp(18px,3.2svh,34px);padding:clamp(12px,2.2svh,20px) clamp(0px,1.1vw,18px) 0;border-top:1px solid #e2ddd6}
@@ -218,14 +220,15 @@ nav.scrolled{background:rgba(0,0,0,.9);backdrop-filter:blur(10px);-webkit-backdr
 .sobre{background:radial-gradient(120% 90% at 20% 0%,#FBFAF8 0%,#F7F4EF 100%);padding:clamp(40px,5.5svh,60px) 0;min-height:calc(100vh - 72px);min-height:calc(100svh - 72px);display:flex;align-items:center}
 .about{width:min(1560px,calc(100% - 2*clamp(20px,3.8vw,64px)));margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);gap:56px clamp(32px,4vw,66px);align-items:center}
 @media(min-width:1100px){.about{grid-template-columns:minmax(0,.95fr) minmax(0,1fr)}}
-/* composição das imagens (sem fotos): painel escuro com o monograma, recorte claro e cartão de legenda */
+/* composição das imagens: retrato grande, recorte de detalhe (mãos) e cartão de legenda */
 .about-media{position:relative;width:min(100%,560px);aspect-ratio:770/797;margin:0 auto;container-type:inline-size}
 @media(min-width:1100px){.about-media{width:min(100%,calc(76svh*770/797));margin:0 auto 0 0}}
-.am-big{position:absolute;left:4.3%;top:0;width:90.6%;height:91.2%;border-radius:clamp(14px,1.4vw,22px);overflow:hidden;background:#0a0a0a url(img/hero-escuro-1440.webp) 100% 50%/230% auto no-repeat;box-shadow:0 30px 70px rgba(30,25,20,.14)}
+.am-big{position:absolute;left:4.3%;top:0;width:90.6%;height:91.2%;border-radius:clamp(14px,1.4vw,22px);overflow:hidden;background:#0a0a0a url(img/michelle-sobre-720.webp) 50% 10%/cover no-repeat;box-shadow:0 30px 70px rgba(30,25,20,.14)}
+@media(min-resolution:1.4dppx),(-webkit-min-device-pixel-ratio:1.4){.am-big{background-image:url(img/michelle-sobre-1080.webp)}}
 .am-big::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.45) 100%)}
-.am-tile{position:absolute;left:61.6%;top:67.5%;width:38.2%;height:32.5%;border:3px solid #fff;border-radius:clamp(12px,1.1vw,18px);overflow:hidden;background:#e8e0d6 url(img/parede-clara-1920.webp) 0% 42%/330% auto no-repeat;box-shadow:0 22px 50px rgba(30,25,20,.22)}
+.am-tile{position:absolute;left:61.6%;top:67.5%;width:38.2%;height:32.5%;border:3px solid #fff;border-radius:clamp(12px,1.1vw,18px);overflow:hidden;background:#e8e0d6 url(img/sobre-livros-640.webp) 50% 50%/cover no-repeat;box-shadow:0 22px 50px rgba(30,25,20,.22)}
 .am-cap{position:absolute;left:0;top:80.6%;width:51.4%;height:16.7%;min-height:76px;background:#1b1a19;color:#fff;border-radius:clamp(8px,.8vw,12px);padding:0 24px;padding:0 5.7cqw;display:flex;flex-direction:column;justify-content:center;box-shadow:0 22px 50px rgba(20,16,12,.28)}
-.am-cap b{font-size:11px;font-size:clamp(10px,1.95cqw,15px);font-weight:500;letter-spacing:.24em;text-transform:uppercase;line-height:1.3;white-space:nowrap}
+.am-cap b{font-size:11px;font-size:clamp(11px,1.95cqw,15px);font-weight:500;letter-spacing:.24em;text-transform:uppercase;line-height:1.3;white-space:nowrap}
 .am-cap i{display:block;width:40px;width:7.3cqw;min-width:28px;height:1px;background:rgba(255,255,255,.6);margin:10px 0;margin:2.3cqw 0}
 .am-cap em{font-family:var(--serif);font-size:16px;font-size:clamp(14px,3.1cqw,24px);line-height:1.2;color:rgba(255,255,255,.82)}
 /* coluna de texto */
@@ -409,6 +412,46 @@ footer .logo b{font-size:clamp(18px,1.55vw,26px)}
 .draft{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:60;width:max-content;max-width:calc(100vw - 24px);background:#fff;color:#202020;border:1px solid #c99a00;border-radius:6px;padding:9px 12px;font-size:12px;line-height:1.4;box-shadow:0 6px 20px rgba(0,0,0,.18);display:flex;gap:10px;align-items:center}
 .draft b{font-weight:700}
 .draft button{background:#202020;color:#fff;border:0;border-radius:4px;padding:6px 10px;font-size:11.5px;font-weight:600;white-space:nowrap}
+@media(pointer:coarse){.draft button{min-height:44px;min-width:44px;padding:8px 14px}}
+
+/* ===== AJUSTES DE TELA PEQUENA: mesma margem lateral (--gutter) em todas as seções ===== */
+.logo{position:relative}
+.logo::after{content:"";position:absolute;inset:-14px -10px}
+@media(max-width:1099px){
+  .about,.p-wrap,.f-in{width:calc(100% - 2*var(--gutter))}
+}
+@media(max-width:899px){
+  .areas-head,.areas-foot{padding-left:0;padding-right:0}
+}
+@media(max-width:767px){
+  .bar-in,.hero-main,.hero-foot{padding-left:12px;padding-right:12px}
+  .faq-foot{width:calc(100% - 2*var(--gutter))}
+}
+/* botão do formulário: a seta não pode encostar no texto */
+@media(max-width:480px){.c-btn{padding:0 48px 0 16px}.c-btn .c-arrow{right:14px}}
+@media(max-width:380px){
+  .c-btn{padding:0 12px;gap:10px}
+  .c-btn .c-arrow{display:none}
+  /* dúvidas: coluna do número mais estreita pra pergunta ter espaço */
+  .faq-q{grid-template-columns:34px minmax(0,1fr) 38px;padding:0 14px}
+  .faq-t{padding-left:12px}
+  .faq-a-in{padding-left:calc(14px + 34px + 12px + 1px);padding-right:14px}
+  .faq-help .pill-o{padding:0 18px;gap:10px;white-space:nowrap}
+}
+/* telas bem estreitas (≤360px): campos com menos folga lateral pra o texto caber */
+@media(max-width:360px){
+  .c-card{padding-left:16px;padding-right:16px}
+  input,select{padding-left:14px;padding-right:14px}
+  textarea{padding-left:14px;padding-right:14px}
+  select{padding-right:38px;background-position:right 14px center;text-overflow:ellipsis}
+  input::placeholder{text-overflow:ellipsis}
+}
+@media(max-width:350px){
+  .c-row .c-v{font-size:15px}.c-row{column-gap:10px}
+  .c-card{padding-left:12px;padding-right:12px}
+  input,select,textarea{padding-left:12px;padding-right:12px}
+  select{padding-right:32px;background-position:right 10px center}
+}
 </style>
 </head>
 <body>
@@ -487,8 +530,8 @@ footer .logo b{font-size:clamp(18px,1.55vw,26px)}
       </ul>
     </div>
 
-    <!-- Sem foto: a moldura em arco mostra o monograma do fundo. Para usar um retrato no futuro, colocar <img> aqui dentro (position:absolute; inset:0; object-fit:cover). -->
-    <figure class="arch reveal">
+    <!-- Retrato em background do .arch (CSS, só ≥960px). Trocar o arquivo em .arch no CSS para mudar a foto. -->
+    <figure class="arch reveal" role="img" aria-label="Retrato da Dra. Michelle Martins">
       <figcaption><b>Michelle Martins</b><i>Advocacia com atenção à sua história.</i></figcaption>
     </figure>
   </div>
@@ -500,7 +543,7 @@ footer .logo b{font-size:clamp(18px,1.55vw,26px)}
 </header>
 
 <!-- ÁREAS DE ATUAÇÃO -->
-<!-- Os topos dos cartões usam recortes dos fundos fornecidos (sem fotos). Para usar fotos no futuro, trocar o background do .card-top. -->
+<!-- Topos dos cartões: fotos em img/area-*.webp (decorativas, alt vazio). A foto "imoveis" está no cartão 01 (Ações Rio Doce) e "outros" no 03; confirmar com a cliente/Guilherme se Imóveis vira uma área própria. -->
 <section class="areas" id="atuacao">
   <div class="areas-in">
     <div class="areas-head">
@@ -514,7 +557,7 @@ footer .logo b{font-size:clamp(18px,1.55vw,26px)}
 
     <div class="cards">
       <article class="card reveal">
-        <div class="card-top t1" aria-hidden="true"></div>
+        <div class="card-top t1" aria-hidden="true"><img src="img/area-imoveis-800.webp" srcset="img/area-imoveis-800.webp 800w, img/area-imoveis-1400.webp 1400w" sizes="(min-width:900px) 34vw, 100vw" width="1400" height="700" alt="" loading="lazy" decoding="async"></div>
         <div class="card-body">
           <span class="num">01</span>
           <h3>Ações Rio Doce — Samarco</h3>
@@ -523,7 +566,7 @@ footer .logo b{font-size:clamp(18px,1.55vw,26px)}
         </div>
       </article>
       <article class="card reveal">
-        <div class="card-top t2" aria-hidden="true"></div>
+        <div class="card-top t2" aria-hidden="true"><img src="img/area-familia-800.webp" srcset="img/area-familia-800.webp 800w, img/area-familia-1400.webp 1400w" sizes="(min-width:900px) 34vw, 100vw" width="1400" height="700" alt="" loading="lazy" decoding="async"></div>
         <div class="card-body">
           <span class="num">02</span>
           <h3>Direito de Família</h3>
@@ -532,7 +575,7 @@ footer .logo b{font-size:clamp(18px,1.55vw,26px)}
         </div>
       </article>
       <article class="card reveal">
-        <div class="card-top t3" aria-hidden="true"></div>
+        <div class="card-top t3" aria-hidden="true"><img src="img/area-outros-800.webp" srcset="img/area-outros-800.webp 800w, img/area-outros-1400.webp 1400w" sizes="(min-width:900px) 34vw, 100vw" width="1400" height="700" alt="" loading="lazy" decoding="async"></div>
         <div class="card-body">
           <span class="num">03</span>
           <h3>Outras áreas</h3>
@@ -550,13 +593,13 @@ footer .logo b{font-size:clamp(18px,1.55vw,26px)}
 </section>
 
 <!-- SOBRE -->
-<!-- Sem fotos: a composição usa o painel escuro com o monograma, um recorte da parede clara e o cartão de legenda. Para usar retratos no futuro, trocar o background de .am-big e .am-tile. -->
+<!-- Composição: retrato grande (.am-big), foto menor de livros (.am-tile) e cartão de legenda (.am-cap). Fotos em CSS (michelle-sobre-*, sobre-livros-640). -->
 <section class="sobre" id="sobre">
   <div class="about">
-    <div class="about-media reveal" aria-hidden="true">
-      <div class="am-big"></div>
-      <div class="am-tile"></div>
-      <div class="am-cap"><b>Atenção à sua história.</b><i></i><em>Clareza em cada etapa.</em></div>
+    <div class="about-media reveal">
+      <div class="am-big" role="img" aria-label="Dra. Michelle Martins sentada à mesa do escritório, com a mão apoiada no queixo"></div>
+      <div class="am-tile" aria-hidden="true"></div>
+      <div class="am-cap" aria-hidden="true"><b>Atenção à sua história.</b><i></i><em>Clareza em cada etapa.</em></div>
     </div>
 
     <div class="about-copy">
@@ -694,7 +737,7 @@ footer .logo b{font-size:clamp(18px,1.55vw,26px)}
       <form id="form" novalidate>
         <div class="field">
           <label for="nome">Seu nome</label>
-          <input id="nome" name="nome" type="text" autocomplete="name" enterkeyhint="next" placeholder="Como podemos chamar você?" required aria-describedby="nome-erro">
+          <input id="nome" name="nome" type="text" autocomplete="name" enterkeyhint="next" placeholder="Como podemos te chamar?" required aria-describedby="nome-erro">
           <p class="c-erro" id="nome-erro" role="alert" hidden>Informe seu nome para continuar.</p>
         </div>
         <div class="field">
@@ -745,7 +788,7 @@ footer .logo b{font-size:clamp(18px,1.55vw,26px)}
 
 
 <!-- faixa de rascunho: remover antes de publicar -->
-<div class="draft" id="draft"><span><b>Rascunho v2</b> · amarelo = a confirmar</span><button id="draftBtn" type="button">Ocultar</button><button id="draftX" type="button" aria-label="Fechar faixa" style="background:none;color:#202020;font-size:16px;padding:2px 4px">×</button></div>
+<div class="draft" id="draft" role="region" aria-label="Aviso de rascunho"><span><b>Rascunho v2</b> · amarelo = a confirmar</span><button id="draftBtn" type="button">Ocultar</button><button id="draftX" type="button" aria-label="Fechar faixa" style="background:none;color:#202020;font-size:16px;padding:2px 8px">×</button></div>
 
 <script>
 (function(){
